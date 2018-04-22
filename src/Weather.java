@@ -1,7 +1,7 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+
 
 import java.io.IOException;
 
@@ -11,8 +11,6 @@ public class Weather {
     public Weather() throws IOException {
 
         Document doc = Jsoup.connect("http://realmeteo.ru/moscow/1/current/").get();
- //       Elements trElements = doc.getElementsByAttributeValue("id", "col1");    //температура
- //       Elements trElements2 = doc.getElementsByAttributeValue("id", "col2");   //ощущается как
         Element trElement = doc.getElementsByAttributeValue("id", "col1").get(0);
         Element trElement2 = doc.getElementsByAttributeValue("id", "col2").get(0);
         Element trElement3 = doc.getElementsByAttributeValue("class","meteodata").get(1);
