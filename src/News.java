@@ -15,7 +15,7 @@ public class News {
             news = "\n" + news + trElement.text() + "\n" ;
             i++;
         }
-        news = news + "Новости предоставлены сайтом odnastroka.ru " + "\uD83D\uDE01";
+        news = news + "Новости предоставлены сайтом odnastroka.ru ";
     }
 
     public String getNews() {
