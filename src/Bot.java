@@ -45,8 +45,13 @@ public class Bot extends TelegramLongPollingBot {
                 }
                 break;
 
-            case "ksu":
-                sendMsg(msg,"Я люблю Ксю");
+            case "/news":
+                try {
+                    News news = new News();
+                    sendMsg(msg, news.getNews());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
 
         }
@@ -67,7 +72,7 @@ public class Bot extends TelegramLongPollingBot {
 
     private void sendMsg(Message msg, String text) {
         SendMessage s = new SendMessage();
-        s.setChatId(String.valueOf(msg.getChatId())); // Боту может писать не один человек, и поэтому чтобы отправить сообщение, грубо говоря нужно узнать куда его отправлять
+        s.setChatId(String.valueOf(msg.getChatId()));
         s.setText(text);
         try {
             sendMessage(s);

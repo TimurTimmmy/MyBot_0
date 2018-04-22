@@ -14,7 +14,7 @@ public class Currency {
                 ("style", "font-size: 1.2rem;");
         Elements trElementsEuro = docEuro.getElementsByAttributeValueContaining
                 ("style", "font-size: 1.2rem;");
-        Currency = trElements.text() + "\n" + trElementsEuro.text();
+        Currency = "\uD83D\uDCB5" + trElements.text() + "\n" + "\uD83D\uDCB6" + trElementsEuro.text();
     }
 
     public String getCurrency() {
