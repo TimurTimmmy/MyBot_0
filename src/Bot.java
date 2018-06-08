@@ -60,7 +60,7 @@ public class Bot extends TelegramLongPollingBot {
         break;
 
         default:
-        sendMsg(msg, "Введите команду");
+        sendChat(txt);
     }
 }
 
@@ -113,5 +113,18 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e){
             e.printStackTrace();
         }
+    }
+
+    private void sendChat(String text){
+        SendMessage sendChat = new SendMessage();
+        sendChat.enableMarkdown(true);
+        sendChat.setChatId("-1001370302039");
+        sendChat.setText(text);
+        try {
+            sendMessage(sendChat);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
     }
 }
