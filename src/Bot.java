@@ -1,4 +1,5 @@
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -6,6 +7,7 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +61,27 @@ public class Bot extends TelegramLongPollingBot {
         }
         break;
 
+        case "Мемасик":
+            String pathPhoto = "C:\\tmp\\" + (int) (Math.random()*10) + ".jpg";
+        try {
+            sendPhoto(msg,pathPhoto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        break;
+
+        case "Московское метро":
+            String pathMetro = "C:\\tmp\\metromap.jpg";
+        try {
+            sendPhoto(msg,pathMetro);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        break;
+
         default:
         sendChat(txt);
+
     }
 }
 
@@ -93,12 +114,14 @@ public class Bot extends TelegramLongPollingBot {
         // Add buttons
         keyboardFirstRow.add("Погода в Москве");
         keyboardFirstRow.add("Курс валют");
+        keyboardFirstRow.add("Мемасик");
 
         // Second row
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Add buttons
         keyboardSecondRow.add("Случайный анекдот");
         keyboardSecondRow.add("Лента новостей");
+        keyboardSecondRow.add("Московское метро");
 
         // Add rows to List
         keyboard.add(keyboardFirstRow);
@@ -112,6 +135,7 @@ public class Bot extends TelegramLongPollingBot {
             sendMessage(sendMessage);
         } catch (TelegramApiException e){
             e.printStackTrace();
+            sendChat(String.valueOf(e));
         }
     }
 
@@ -119,12 +143,25 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sendChat = new SendMessage();
         sendChat.enableMarkdown(true);
         sendChat.setChatId("-1001370302039");
-        sendChat.setText(text);
+        sendChat.setText("Cообщение от бота: " + text);
         try {
             sendMessage(sendChat);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+            sendChat(String.valueOf(e));
         }
 
+    }
+
+    private void sendPhoto(Message msg, String path){
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(String.valueOf(msg.getChatId()));
+        sendPhoto.setNewPhoto(new File(path));
+        try {
+            sendPhoto(sendPhoto);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+            sendChat(String.valueOf(e));
+        }
     }
 }
