@@ -25,7 +25,7 @@ public class Bot extends TelegramLongPollingBot {
         sendMsg(msg, "Добро пожаловать!");
         break;
 
-        case "Погода в Москве":
+        case "\u26C5 Москва":
         try {
             Weather wt = new Weather();
             sendMsg(msg, wt.getWeather());
@@ -34,7 +34,7 @@ public class Bot extends TelegramLongPollingBot {
         }
         break;
 
-        case "Курс валют":
+        case "Курс \uD83D\uDCB6 \uD83D\uDCB5":
         try {
             Currency cr = new Currency();
             sendMsg(msg, cr.getCurrency());
@@ -43,7 +43,7 @@ public class Bot extends TelegramLongPollingBot {
         }
         break;
 
-        case "Случайный анекдот":
+        case "\uD83D\uDE02 Анекдот":
         try {
             Anekdot an = new Anekdot();
             sendMsg(msg, an.getAnekdot());
@@ -52,7 +52,7 @@ public class Bot extends TelegramLongPollingBot {
         }
         break;
 
-        case "Лента новостей":
+        case "\uD83D\uDCF0 Лента":
         try {
             News news = new News();
             sendMsg(msg, news.getNews());
@@ -61,20 +61,20 @@ public class Bot extends TelegramLongPollingBot {
         }
         break;
 
-        case "Мемасик":
-            String pathPhoto = "C:\\tmp\\" + (int) (Math.random()*10) + ".jpg";
+        case "\uD83D\uDE87 Москова":
+            String pathMetro = "C:\\tmp\\metromap.jpg";
         try {
-            sendPhoto(msg,pathPhoto);
+            sendPhoto(msg,pathMetro);
         } catch (Exception e) {
             e.printStackTrace();
         }
         break;
 
-        case "Московское метро":
-            String pathMetro = "C:\\tmp\\metromap.jpg";
+        case "\uD83C\uDD71 Bash":
         try {
-            sendPhoto(msg,pathMetro);
-        } catch (Exception e) {
+            Bash bash = new Bash();
+            sendMsg(msg, bash.getBash());
+        } catch (IOException e) {
             e.printStackTrace();
         }
         break;
@@ -112,16 +112,16 @@ public class Bot extends TelegramLongPollingBot {
         // First row
         KeyboardRow keyboardFirstRow = new KeyboardRow();
         // Add buttons
-        keyboardFirstRow.add("Погода в Москве");
-        keyboardFirstRow.add("Курс валют");
-        keyboardFirstRow.add("Мемасик");
+        keyboardFirstRow.add("\u26C5 Москва");
+        keyboardFirstRow.add("Курс \uD83D\uDCB6 \uD83D\uDCB5");
+        keyboardFirstRow.add("\uD83C\uDD71 Bash");
 
         // Second row
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Add buttons
-        keyboardSecondRow.add("Случайный анекдот");
-        keyboardSecondRow.add("Лента новостей");
-        keyboardSecondRow.add("Московское метро");
+        keyboardSecondRow.add("\uD83D\uDE02 Анекдот");
+        keyboardSecondRow.add("\uD83D\uDCF0 Лента");
+        keyboardSecondRow.add("\uD83D\uDE87 Москова");
 
         // Add rows to List
         keyboard.add(keyboardFirstRow);
@@ -143,7 +143,7 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sendChat = new SendMessage();
         sendChat.enableMarkdown(true);
         sendChat.setChatId("-1001370302039");
-        sendChat.setText("Cообщение от бота: " + text);
+        sendChat.setText("Cообщение от бота: " + "\n" + "StackTrace " + text);
         try {
             sendMessage(sendChat);
         } catch (TelegramApiException e) {
